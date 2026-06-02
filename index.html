@@ -2,9 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>Minnos · learn English, one cat at a time</title>
 <meta name="description" content="Pet Minnos the cat and collect English idioms — a cosy little way to learn." />
+<meta name="theme-color" content="#FBF1E3" media="(prefers-color-scheme:light)" />
+<meta name="theme-color" content="#2A1E15" media="(prefers-color-scheme:dark)" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%23DE7C5A'/%3E%3Ctext x='50' y='62' font-size='50' text-anchor='middle' fill='%23FFFAF2'%3E🐱%3C/text%3E%3C/svg%3E" />
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%23DE7C5A'/%3E%3Ctext x='50' y='62' font-size='50' text-anchor='middle' fill='%23FFFAF2'%3E🐱%3C/text%3E%3C/svg%3E" />
+<link rel="manifest" href="data:application/json,%7B%22name%22%3A%22Minnos%22%2C%22short_name%22%3A%22Minnos%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%23FBF1E3%22%2C%22theme_color%22%3A%22%23DE7C5A%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data:image/svg%2Bxml%2C%253Csvg xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg' viewBox%3D'0 0 100 100'%253E%253Ccircle cx%3D'50' cy%3D'50' r%3D'48' fill%3D'%2523DE7C5A'%2F%253E%253Ctext x%3D'50' y%3D'62' font-size%3D'50' text-anchor%3D'middle' fill%3D'%2523FFFAF2'%253E%25F0%259F%2590%25B1%253C%2Ftext%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22100x100%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
@@ -31,6 +36,36 @@
     --shadow:     0 18px 40px -18px rgba(112,72,38,.45);
     --shadow-sm:  0 8px 20px -10px rgba(112,72,38,.4);
     --radius:     22px;
+    --bg-glow-1:  rgba(222,124,90,.20);
+    --bg-glow-2:  rgba(143,166,142,.22);
+  }
+
+  @media (prefers-color-scheme:dark){
+    :root{
+      --paper:      #2A1E15;
+      --paper-2:    #35281E;
+      --ink:        #EDDDCC;
+      --ink-soft:   #B09A86;
+      --clay:       #DE7C5A;
+      --clay-deep:  #E8946A;
+      --sage:       #7FA682;
+      --rose:       #D4808A;
+      --cream-card: #382C22;
+      --line:       #4F3D30;
+
+      --fur:        #C4A07A;
+      --fur-dark:   #A88460;
+      --ear-pink:   #C6737C;
+      --nose:       #D46A74;
+      --eye:        #1A0F08;
+      --blush:      #C46A6A;
+
+      --shadow:     0 18px 40px -18px rgba(0,0,0,.6);
+      --shadow-sm:  0 8px 20px -10px rgba(0,0,0,.5);
+      --bg-glow-1:  rgba(222,124,90,.12);
+      --bg-glow-2:  rgba(143,166,142,.10);
+    }
+    .cat-svg{ --fur:var(--fur); --fur-dark:var(--fur-dark); --ear-pink:var(--ear-pink); --nose:var(--nose); --eye:var(--eye); --blush:var(--blush); }
   }
 
   *{ box-sizing:border-box; margin:0; padding:0; }
@@ -41,13 +76,15 @@
     font-family:"Nunito Sans", system-ui, sans-serif;
     color:var(--ink);
     background:
-      radial-gradient(1100px 700px at 78% -8%, rgba(222,124,90,.20), transparent 60%),
-      radial-gradient(900px 620px at 8% 108%, rgba(143,166,142,.22), transparent 60%),
+      radial-gradient(1100px 700px at 78% -8%, var(--bg-glow-1), transparent 60%),
+      radial-gradient(900px 620px at 8% 108%, var(--bg-glow-2), transparent 60%),
       linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%);
     min-height:100vh;
+    min-height:100dvh;
     line-height:1.55;
     overflow-x:hidden;
     position:relative;
+    transition:background .35s ease, color .25s ease;
   }
 
   /* paper grain */
@@ -55,10 +92,12 @@
     content:"";
     position:fixed; inset:0;
     pointer-events:none; z-index:0;
-    opacity:.5;
+    opacity:.35;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
     mix-blend-mode:multiply;
   }
+
+  ::selection{ background:var(--clay); color:#fff; }
 
   .wrap{ position:relative; z-index:1; max-width:760px; margin:0 auto; padding:0 22px 90px; }
 
@@ -83,9 +122,10 @@
     color:var(--ink); font-family:"Nunito Sans",sans-serif; font-weight:700;
     font-size:.9rem; padding:9px 15px; border-radius:999px; cursor:pointer;
     display:inline-flex; align-items:center; gap:8px; box-shadow:var(--shadow-sm);
-    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .25s ease;
   }
   .jar-btn:hover{ transform:translateY(-2px); border-color:var(--clay); }
+  .jar-btn:focus-visible{ outline:3px dashed var(--clay); outline-offset:4px; }
   .jar-btn .count{
     background:var(--clay); color:#fff; border-radius:999px;
     font-size:.78rem; padding:1px 9px; min-width:22px; text-align:center;
@@ -148,6 +188,7 @@
   }
   .pet-btn:hover{ transform:translateY(-2px); filter:brightness(1.04); }
   .pet-btn:active{ transform:translateY(1px) scale(.99); }
+  .pet-btn:focus-visible{ outline:3px dashed var(--clay); outline-offset:4px; }
   .hint{ font-size:.86rem; color:var(--ink-soft); }
 
   /* sparkles */
@@ -174,6 +215,8 @@
     opacity:0; transform:translateY(20px) scale(.97);
     pointer-events:none;
     display:none;
+    scroll-margin:40px;
+    transition:background .25s ease, border-color .25s ease;
   }
   .gift.show{
     display:block; pointer-events:auto;
@@ -200,9 +243,10 @@
     border:1.5px solid var(--line); background:var(--paper);
     color:var(--ink-soft); font-family:"Nunito Sans",sans-serif; font-weight:700;
     font-size:.82rem; padding:7px 14px; border-radius:999px; cursor:pointer;
-    transition:border-color .16s ease, color .16s ease, transform .16s ease;
+    transition:border-color .16s ease, color .16s ease, transform .16s ease, background .25s ease;
   }
   .speak:hover{ border-color:var(--clay); color:var(--clay-deep); transform:translateY(-1px); }
+  .speak:focus-visible{ outline:3px dashed var(--clay); outline-offset:3px; }
   .speak-row{ display:flex; justify-content:center; }
   .meaning{
     margin:20px 0 0; font-size:1.05rem; text-align:center; color:var(--ink);
@@ -219,6 +263,7 @@
     font-size:.85rem; cursor:pointer; text-decoration:underline; text-underline-offset:3px;
   }
   .uz-toggle:hover{ color:#5f7a5e; }
+  .uz-toggle:focus-visible{ outline:2px dashed var(--clay); outline-offset:3px; border-radius:4px; }
   .uz{
     display:none; margin:12px auto 0; max-width:46ch; text-align:center;
     color:var(--ink-soft); font-size:.96rem;
@@ -235,10 +280,11 @@
   .bar{
     height:8px; background:var(--paper-2); border-radius:999px; overflow:hidden;
     margin:8px auto 0; max-width:320px; border:1px solid var(--line);
+    transition:background .25s ease, border-color .25s ease;
   }
   .bar i{ display:block; height:100%; width:0%;
     background:linear-gradient(90deg, var(--sage), var(--clay));
-    border-radius:999px; transition:width .5s cubic-bezier(.2,.8,.2,1); }
+    border-radius:999px; transition:width .6s cubic-bezier(.2,.8,.2,1); }
 
   /* completion */
   .done{
@@ -247,7 +293,12 @@
     border:1.5px dashed var(--clay); border-radius:var(--radius);
     padding:26px 24px;
   }
-  .done.show{ display:block; animation:pop .6s cubic-bezier(.2,.9,.25,1.2) forwards; }
+  .done.show{ display:block; animation:donePop .7s cubic-bezier(.2,.9,.25,1.2) forwards; }
+  @keyframes donePop{
+    0%{ opacity:0; transform:translateY(20px) scale(.95) }
+    60%{ transform:translateY(-6px) scale(1.02) }
+    100%{ opacity:1; transform:translateY(0) scale(1) }
+  }
   .done h3{ font-family:"Fraunces",serif; font-weight:600; font-size:1.4rem; color:var(--clay-deep); }
   .done p{ color:var(--ink); margin-top:8px; }
 
@@ -262,6 +313,7 @@
     background:var(--paper); border-radius:24px; max-width:620px; width:100%;
     margin:auto; padding:26px 24px 30px; box-shadow:0 30px 60px -20px rgba(58,42,30,.6);
     border:1.5px solid var(--line);
+    transition:background .25s ease, border-color .25s ease;
   }
   .sheet-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:6px; }
   .sheet-head h3{ font-family:"Fraunces",serif; font-weight:600; font-size:1.4rem; }
@@ -271,21 +323,35 @@
     transition:background .16s ease, transform .16s ease;
   }
   .close:hover{ background:var(--clay); color:#fff; transform:rotate(90deg); }
+  .close:focus-visible{ outline:3px dashed var(--clay); outline-offset:3px; }
   .sheet .sub{ color:var(--ink-soft); font-size:.9rem; margin-bottom:18px; }
   .list{ display:grid; gap:12px; }
   .chip{
     background:var(--cream-card); border:1.5px solid var(--line);
     border-radius:16px; padding:14px 16px;
+    transition:background .25s ease, border-color .25s ease;
   }
   .chip .t{ font-family:"Fraunces",serif; font-weight:600; font-size:1.08rem; color:var(--ink); }
   .chip .m{ color:var(--ink-soft); font-size:.9rem; margin-top:3px; }
   .empty{ text-align:center; color:var(--ink-soft); padding:30px 10px; }
   .empty span{ font-size:2.2rem; display:block; margin-bottom:8px; }
 
+  /* ---------- confetti burst ---------- */
+  .confetti-piece{
+    position:fixed; width:10px; height:10px; border-radius:2px;
+    pointer-events:none; z-index:999;
+    animation:confettiFall 2.6s ease-out forwards;
+  }
+  @keyframes confettiFall{
+    0%{ opacity:1; transform:translateY(0) rotate(0deg) scale(1) }
+    100%{ opacity:0; transform:translateY(80vh) rotate(var(--cr,720deg)) scale(.3) }
+  }
+
   /* ---------- footer ---------- */
   footer{
     text-align:center; margin-top:54px; padding-top:24px;
     border-top:1px solid var(--line); color:var(--ink-soft); font-size:.86rem;
+    transition:border-color .25s ease;
   }
   footer .heart{ color:var(--clay); }
   footer a{ color:var(--clay-deep); text-decoration:none; font-weight:700; }
@@ -298,12 +364,21 @@
 
   @media (prefers-reduced-motion: reduce){
     .cat-svg.breathe, .tail, .eyes{ animation:none !important; }
-    *{ scroll-behavior:auto; }
+    .cat-svg.pet{ animation:none !important; }
+    .gift.show{ animation:none !important; opacity:1 !important; transform:none !important; }
+    .done.show{ animation:none !important; }
+    .spark{ animation:none !important; opacity:0 !important; }
+    .confetti-piece{ animation:none !important; display:none !important; }
+    html{ scroll-behavior:auto; }
+  }
+
+  @media (display-mode:standalone){
+    header{ padding-top:44px; }
   }
 </style>
 </head>
 <body>
-  <div class="wrap">
+  <div class="wrap" id="wrap">
     <header>
       <div class="brand">
         <h1>minnos<span class="dot">.</span></h1>
@@ -390,7 +465,7 @@
       <p class="meaning" id="meaning"></p>
       <p class="example" id="example"></p>
       <button class="uz-toggle" id="uzToggle">O‘zbekcha ko‘rsatish</button>
-      <p class="uz" id="uz"></p>
+      <p class="uz" id="uz" lang="uz"></p>
     </article>
 
     <!-- progress -->
@@ -402,7 +477,7 @@
     <!-- completion -->
     <div class="done" id="done">
       <h3 id="doneTitle">Every last one! 🐾</h3>
-      <p id="doneMsg">Minnos is so proud of you. Curiosity didn’t kill this cat — it only made her adore you more. ✨</p>
+      <p id="doneMsg">Minnos is so proud of you. Curiosity didn't kill this cat — it only made her adore you more. ✨</p>
     </div>
 
     <footer>
@@ -411,97 +486,103 @@
   </div>
 
   <!-- collection modal -->
-  <div class="overlay" id="overlay">
-    <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+  <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <div class="sheet">
       <div class="sheet-head">
-        <h3 id="sheetTitle">Minnos’s little gifts</h3>
-        <button class="close" id="closeBtn" aria-label="Close">×</button>
+        <h3 id="sheetTitle">Minnos's little gifts</h3>
+        <button class="close" id="closeBtn" aria-label="Close">&times;</button>
       </div>
-      <p class="sub" id="sheetSub">The idioms you’ve collected so far.</p>
+      <p class="sub" id="sheetSub">The idioms you've collected so far.</p>
       <div class="list" id="list"></div>
     </div>
   </div>
 
 <script>
 /* ============================================================
-   EASY TO EDIT — make it yours
+   CONFIG  — personalise these!
    ============================================================ */
-// Change this to your girlfriend's name for a personal touch:
-const FOOTER_NOTE = "for SF"; // shown in the footer
-// Shown once she collects every idiom (your little surprise):
+const FOOTER_NOTE = "for SF";
 const COMPLETION_TITLE = "Every last one! 🐾";
-const COMPLETION_MSG   = "Minnos is so proud of you. Curiosity didn’t kill this cat — it only made her adore you more. ✨";
+const COMPLETION_MSG   = "Minnos is so proud of you. Curiosity didn't kill this cat — it only made her adore you more. ✨";
 
 /* ============================================================
-   THE IDIOMS  (term / meaning / example / Uzbek)
+   THE IDIOMS
    ============================================================ */
 const idioms = [
-  {t:"Let the cat out of the bag", m:"To reveal a secret, often by accident.", e:"I wanted to surprise her, but my brother let the cat out of the bag.", uz:"Sirni (ko‘pincha tasodifan) oshkor qilmoq."},
-  {t:"Curiosity killed the cat", m:"Being too curious can get you into trouble.", e:"Stop reading other people’s messages — curiosity killed the cat.", uz:"Ortiqcha qiziquvchanlik baloga olib keladi."},
-  {t:"Raining cats and dogs", m:"Raining very heavily.", e:"Bring an umbrella — it’s raining cats and dogs out there.", uz:"Chelaklab yomg‘ir yog‘moq."},
-  {t:"Cat got your tongue?", m:"Said to someone who stays silent when they’re expected to speak.", e:"You’ve been quiet all evening — cat got your tongue?", uz:"Nega jimsan? Tiling kalimaga kelmayaptimi?"},
-  {t:"Like herding cats", m:"Trying to organise people or things that refuse to cooperate.", e:"Getting the whole class to sit still is like herding cats.", uz:"Tartibsiz, bo‘ysunmaydigan narsani boshqarishga urinmoq."},
-  {t:"The cat’s pyjamas", m:"An excellent or wonderful person or thing.", e:"She got new headphones and thinks they’re the cat’s pyjamas.", uz:"A’lo, ajoyib narsa."},
-  {t:"Play cat and mouse", m:"To toy with someone, letting them think they can escape before you act.", e:"The detective played cat and mouse with the suspect for weeks.", uz:"Mushuk-sichqon o‘ynamoq (birovni o‘ynatib turmoq)."},
-  {t:"When the cat’s away, the mice will play", m:"People relax or misbehave when no one is watching.", e:"The manager left early and the office got loud — when the cat’s away, the mice will play.", uz:"Nazoratchi yo‘qda hamma erkin bo‘lib qoladi."},
-  {t:"Like the cat that got the cream", m:"Looking very pleased with yourself.", e:"He aced the test and walked in like the cat that got the cream.", uz:"O‘zidan juda mamnun ko‘rinmoq."},
-  {t:"Put the cat among the pigeons", m:"To say or do something that causes trouble or argument.", e:"She put the cat among the pigeons by asking about the missing money.", uz:"Janjal yoki to‘polon keltirib chiqarmoq."},
-  {t:"A cat nap", m:"A short, light sleep during the day.", e:"I’ll take a quick cat nap before we head out tonight.", uz:"Kunduzgi qisqa, yengil uyqu."},
-  {t:"Copycat", m:"Someone who copies another person’s work or behaviour.", e:"Don’t be a copycat — come up with your own design.", uz:"Taqlidchi, ko‘chiruvchi."},
-  {t:"Scaredy-cat", m:"A person who is easily frightened.", e:"Don’t be a scaredy-cat, the rollercoaster is fun!", uz:"Qo‘rqoq."},
-  {t:"Fat cat", m:"A wealthy and powerful person, often used disapprovingly.", e:"The fat cats got bonuses while the staff got nothing.", uz:"Boy va nufuzli kimsa (ko‘pincha salbiy)."},
-  {t:"Cool cat", m:"A stylish, calm and confident person.", e:"With those sunglasses, he looks like a real cool cat.", uz:"Uslubli, vazmin va o‘ziga ishongan odam."},
-  {t:"Not enough room to swing a cat", m:"A very small, cramped space.", e:"The studio flat was tiny — not enough room to swing a cat.", uz:"Juda tor, tig‘iz joy."},
+  {t:"Let the cat out of the bag", m:"To reveal a secret, often by accident.", e:"I wanted to surprise her, but my brother let the cat out of the bag.", uz:"Sirni (ko\u2018pincha tasodifan) oshkor qilmoq."},
+  {t:"Curiosity killed the cat", m:"Being too curious can get you into trouble.", e:"Stop reading other people\u2019s messages \u2014 curiosity killed the cat.", uz:"Ortiqcha qiziquvchanlik baloga olib keladi."},
+  {t:"Raining cats and dogs", m:"Raining very heavily.", e:"Bring an umbrella \u2014 it\u2019s raining cats and dogs out there.", uz:"Chelaklab yomg\u2018ir yog\u2018moq."},
+  {t:"Cat got your tongue?", m:"Said to someone who stays silent when expected to speak.", e:"You\u2019ve been quiet all evening \u2014 cat got your tongue?", uz:"Nega jimsan? Tiling kalimaga kelmayaptimi?"},
+  {t:"Like herding cats", m:"Trying to organise people or things that refuse to cooperate.", e:"Getting the whole class to sit still is like herding cats.", uz:"Tartibsiz, bo\u2018ysunmaydigan narsani boshqarishga urinmoq."},
+  {t:"The cat\u2019s pyjamas", m:"An excellent or wonderful person or thing.", e:"She got new headphones and thinks they\u2019re the cat\u2019s pyjamas.", uz:"A\u2019lo, ajoyib narsa."},
+  {t:"Play cat and mouse", m:"To toy with someone, letting them think they can escape before you act.", e:"The detective played cat and mouse with the suspect for weeks.", uz:"Mushuk-sichqon o\u2018ynamoq (birovni o\u2018ynatib turmoq)."},
+  {t:"When the cat\u2019s away, the mice will play", m:"People relax or misbehave when no one is watching.", e:"The manager left early and the office got loud \u2014 when the cat\u2019s away, the mice will play.", uz:"Nazoratchi yo\u2018qda hamma erkin bo\u2018lib qoladi."},
+  {t:"Like the cat that got the cream", m:"Looking very pleased with yourself.", e:"He aced the test and walked in like the cat that got the cream.", uz:"O\u2018zidan juda mamnun ko\u2018rinmoq."},
+  {t:"Put the cat among the pigeons", m:"To say or do something that causes trouble or argument.", e:"She put the cat among the pigeons by asking about the missing money.", uz:"Janjal yoki to\u2018polon keltirib chiqarmoq."},
+  {t:"A cat nap", m:"A short, light sleep during the day.", e:"I\u2019ll take a quick cat nap before we head out tonight.", uz:"Kunduzgi qisqa, yengil uyqu."},
+  {t:"Copycat", m:"Someone who copies another person\u2019s work or behaviour.", e:"Don\u2019t be a copycat \u2014 come up with your own design.", uz:"Taqlidchi, ko\u2018chiruvchi."},
+  {t:"Scaredy-cat", m:"A person who is easily frightened.", e:"Don\u2019t be a scaredy-cat, the rollercoaster is fun!", uz:"Qo\u2018rqoq."},
+  {t:"Fat cat", m:"A wealthy and powerful person, often used disapprovingly.", e:"The fat cats got bonuses while the staff got nothing.", uz:"Boy va nufuzli kimsa (ko\u2018pincha salbiy)."},
+  {t:"Cool cat", m:"A stylish, calm and confident person.", e:"With those sunglasses, he looks like a real cool cat.", uz:"Uslubli, vazmin va o\u2018ziga ishongan odam."},
+  {t:"Not enough room to swing a cat", m:"A very small, cramped space.", e:"The studio flat was tiny \u2014 not enough room to swing a cat.", uz:"Juda tor, tig\u2018iz joy."},
   {t:"Fight like cats and dogs", m:"To argue or quarrel constantly.", e:"The two brothers love each other but fight like cats and dogs.", uz:"It-mushukday tez-tez janjallashmoq."},
-  {t:"More than one way to skin a cat", m:"There is more than one way to reach a goal.", e:"If the app won’t open, there’s more than one way to skin a cat.", uz:"Maqsadga erishishning bir nechta yo‘li bor."},
+  {t:"More than one way to skin a cat", m:"There is more than one way to reach a goal.", e:"If the app won\u2019t open, there\u2019s more than one way to skin a cat.", uz:"Maqsadga erishishning bir nechta yo\u2018li bor."},
   {t:"Grinning like a Cheshire cat", m:"Smiling very widely, often looking smug.", e:"She got the job and spent all day grinning like a Cheshire cat.", uz:"Keng, mamnun tabassum qilmoq."},
-  {t:"A cat has nine lives", m:"Said about someone who survives many dangers.", e:"He’s had three accidents and walked away each time — a cat has nine lives.", uz:"Mushukning to‘qqiz joni bor (omon qolaveruvchi haqida)."},
+  {t:"A cat has nine lives", m:"Said about someone who survives many dangers.", e:"He\u2019s had three accidents and walked away each time \u2014 a cat has nine lives.", uz:"Mushukning to\u2018qqiz joni bor (omon qolaveruvchi haqida)."},
   {t:"Like a cat on a hot tin roof", m:"Very nervous, restless or anxious.", e:"He was like a cat on a hot tin roof before his interview.", uz:"Juda asabiy va bezovta."},
-  {t:"Look what the cat dragged in", m:"A teasing remark when someone arrives, often late or untidy.", e:"Well, look what the cat dragged in — you’re an hour late!", uz:"Kim kelibdi-ya! (hazil, kech kelgan kishiga)."},
-  {t:"A cat burglar", m:"A thief who climbs quietly into buildings to steal.", e:"A cat burglar slipped in through an upstairs window.", uz:"Binoga sezdirmay kiradigan epchil o‘g‘ri."},
-  {t:"Bell the cat", m:"To take on a dangerous or difficult task for the good of others.", e:"Someone has to give the boss the bad news — who will bell the cat?", uz:"Hamma uchun xavfli/og‘ir vazifani o‘z bo‘yniga olmoq."},
-  {t:"The cat’s meow", m:"Something or someone outstanding and admired.", e:"That little café downtown is the cat’s meow.", uz:"A’lo, hammaga yoqadigan narsa."},
-  {t:"A cat may look at a king", m:"Even an ordinary person has certain rights around important people.", e:"I’m allowed to share my opinion here — a cat may look at a king.", uz:"Oddiy odam ham e’tibor/fikr bildirishga haqli."}
+  {t:"Look what the cat dragged in", m:"A teasing remark when someone arrives late or untidy.", e:"Well, look what the cat dragged in \u2014 you\u2019re an hour late!", uz:"Kim kelibdi-ya! (hazil, kech kelgan kishiga)."},
+  {t:"A cat burglar", m:"A thief who climbs quietly into buildings to steal.", e:"A cat burglar slipped in through an upstairs window.", uz:"Binoga sezdirmay kiradigan epchil o\u2018g\u2018ri."},
+  {t:"Bell the cat", m:"To take on a dangerous or difficult task for the good of others.", e:"Someone has to give the boss the bad news \u2014 who will bell the cat?", uz:"Hamma uchun xavfli/og\u2018ir vazifani o\u2018z bo\u2018yniga olmoq."},
+  {t:"The cat\u2019s meow", m:"Something or someone outstanding and admired.", e:"That little caf\u00e9 downtown is the cat\u2019s meow.", uz:"A\u2019lo, hammaga yoqadigan narsa."},
+  {t:"A cat may look at a king", m:"Even an ordinary person has certain rights around important people.", e:"I\u2019m allowed to share my opinion here \u2014 a cat may look at a king.", uz:"Oddiy odam ham e\u2019tibor/fikr bildirishga haqli."}
 ];
 
 /* ============================================================
-   STATE  (persists on a real site via localStorage,
-           falls back to memory in preview)
+   STATE
    ============================================================ */
 const TOTAL = idioms.length;
 let collected = new Set();
-let lastIndex = -1;
+let lastIndex = null;
+let current = null;
 let celebrated = false;
 
+const $ = id => document.getElementById(id);
+const gift    = $("gift");
+const catSvg  = $("catSvg");
+const sparks  = $("sparks");
+const idiomEl = $("idiom");
+const meaningEl = $("meaning");
+const exampleEl = $("example");
+const uzEl    = $("uz");
+const uzToggle= $("uzToggle");
+const countEl = $("count");
+const progressText = $("progressText");
+const barFill = $("barFill");
+const done    = $("done");
+const hint    = $("hint");
+const overlay = $("overlay");
+const listEl  = $("list");
+const close   = $("closeBtn");
+
+/* ---------- persist ---------- */
 const store = {
+  save(){
+    try{ localStorage.setItem("mn_collected", JSON.stringify([...collected]));
+         localStorage.setItem("mn_celebrated", JSON.stringify(celebrated));
+         localStorage.setItem("mn_lastIndex", JSON.stringify(lastIndex)); }catch(e){}
+  },
   load(){
     try{
-      const raw = localStorage.getItem("minnos_collected");
-      if(raw) collected = new Set(JSON.parse(raw));
-      celebrated = localStorage.getItem("minnos_done") === "1";
-    }catch(e){ /* preview / private mode — stay in memory */ }
-  },
-  save(){
-    try{
-      localStorage.setItem("minnos_collected", JSON.stringify([...collected]));
-      localStorage.setItem("minnos_done", celebrated ? "1" : "0");
-    }catch(e){ /* ignore */ }
+      const c = JSON.parse(localStorage.getItem("mn_collected"));
+      if(c) collected = new Set(c);
+      celebrated = JSON.parse(localStorage.getItem("mn_celebrated")) || false;
+      lastIndex = JSON.parse(localStorage.getItem("mn_lastIndex")) || null;
+    }catch(e){}
   }
 };
 
 /* ============================================================
-   ELEMENTS
-   ============================================================ */
-const $ = id => document.getElementById(id);
-const gift = $("gift"), idiomEl = $("idiom"), meaningEl = $("meaning"),
-      exampleEl = $("example"), uzEl = $("uz"), uzToggle = $("uzToggle"),
-      countEl = $("count"), progressText = $("progressText"), barFill = $("barFill"),
-      hint = $("hint"), done = $("done"), sparks = $("sparks"), catSvg = $("catSvg");
-
-let current = null;
-
-/* ============================================================
-   CORE
+   PICK + PET
    ============================================================ */
 function pickNext(){
   const unseen = idioms.map((_,i)=>i).filter(i=>!collected.has(i));
@@ -511,6 +592,9 @@ function pickNext(){
 }
 
 function pet(){
+  // sound
+  meow();
+
   const idx = pickNext();
   lastIndex = idx;
   current = idioms[idx];
@@ -522,12 +606,17 @@ function pet(){
   // fill card
   idiomEl.textContent   = current.t;
   meaningEl.innerHTML   = "<b>Meaning:</b> " + current.m;
-  exampleEl.textContent = "“" + current.e + "”";
+  exampleEl.textContent = "\u201C" + current.e + "\u201D";
   uzEl.textContent      = current.uz;
   uzEl.classList.remove("show");
-  uzToggle.textContent  = "O‘zbekcha ko‘rsatish";
+  uzToggle.textContent  = "O\u2018zbekcha ko\u2018rsatish";
 
   gift.classList.remove("show"); void gift.offsetWidth; gift.classList.add("show");
+
+  // scroll to gift on mobile
+  if(window.innerWidth < 760){
+    setTimeout(()=>gift.scrollIntoView({behavior:"smooth", block:"center"}), 100);
+  }
 
   // collect
   collected.add(idx);
@@ -535,8 +624,8 @@ function pet(){
   refresh();
 
   hint.textContent = collected.size < TOTAL
-    ? "Pet her again for another one 🐾"
-    : "You’ve met them all — pet her to revisit any time.";
+    ? "Pet her again for another one \uD83D\uDC3E"
+    : "You\u2019ve met them all \u2014 pet her to revisit any time.";
 }
 
 function refresh(){
@@ -546,7 +635,9 @@ function refresh(){
   barFill.style.width = (n / TOTAL * 100) + "%";
 
   if(n >= TOTAL && !celebrated){
-    celebrated = true; store.save();
+    celebrated = true;
+    store.save();
+    confetti();
   }
   if(celebrated){
     $("doneTitle").textContent = COMPLETION_TITLE;
@@ -555,8 +646,9 @@ function refresh(){
   }
 }
 
+/* ---------- sparkles ---------- */
 function burst(){
-  const icons = ["💛","🐾","✨","🌸","💫"];
+  const icons = ["\uD83D\uDC9B","\uD83D\uDC3E","\u2728","\uD83C\uDF38","\uD83D\uDCAB"];
   const n = 6;
   for(let i=0;i<n;i++){
     const s = document.createElement("span");
@@ -572,6 +664,32 @@ function burst(){
   }
 }
 
+/* ---------- meow (Web Audio API) ---------- */
+let audioCtx = null;
+function meow(){
+  try{
+    if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const now = audioCtx.currentTime;
+
+    // two sine tones for a cute mew
+    [420, 520].forEach((freq, i)=>{
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(freq, now);
+      osc.frequency.exponentialRampToValueAtTime(freq * 1.8, now + 0.08);
+      osc.frequency.exponentialRampToValueAtTime(freq * 1.2, now + 0.2);
+      gain.gain.setValueAtTime(0.08 - i*0.02, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+      osc.connect(gain).connect(audioCtx.destination);
+      osc.start(now);
+      osc.stop(now + 0.35);
+    });
+  }catch(e){ /* audio unavailable */ }
+}
+
+/* ---------- speech ---------- */
+let speechQueue = [];
 function speak(){
   if(!current) return;
   try{
@@ -579,32 +697,51 @@ function speak(){
     u.lang = "en-GB"; u.rate = 0.95; u.pitch = 1.05;
     window.speechSynthesis.cancel();
     window.speechSynthesis.speak(u);
-  }catch(e){ /* TTS unavailable */ }
+  }catch(e){}
 }
 
-/* ============================================================
-   COLLECTION MODAL
-   ============================================================ */
+/* ---------- confetti ---------- */
+function confetti(){
+  const colors = ["#DE7C5A","#E89AA0","#8FA68E","#F3CDA0","#C45F3D","#F2A6A6","#E7D4Bd"];
+  for(let i=0;i<60;i++){
+    const el = document.createElement("div");
+    el.className = "confetti-piece";
+    const c = colors[Math.floor(Math.random()*colors.length)];
+    const l = Math.random()*90 + 5;
+    const d = Math.random()*1.5 + 0.8;
+    const s = Math.random()*6 + 6;
+    const r = Math.random()*1080 - 540;
+    el.style.cssText = `left:${l}%;top:-12px;width:${s}px;height:${s}px;background:${c};border-radius:${Math.random()>0.5?'50%':'2px'};animation-duration:${d}s;animation-delay:${i*20}ms;--cr:${r}deg;`;
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(), 3500 + i*20);
+  }
+}
+
+/* ---------- modal ---------- */
 function openCollection(){
-  const list = $("list");
-  list.innerHTML = "";
+  listEl.innerHTML = "";
   const items = [...collected];
   if(!items.length){
-    list.innerHTML = '<div class="empty"><span>🐾</span>No gifts yet. Give Minnos a pet to start your collection!</div>';
+    listEl.innerHTML = '<div class="empty"><span>\uD83D\uDC3E</span>No gifts yet. Give Minnos a pet to start your collection!</div>';
   } else {
     items.forEach(i=>{
       const d = document.createElement("div");
       d.className = "chip";
       d.innerHTML = '<div class="t">'+idioms[i].t+'</div><div class="m">'+idioms[i].m+'</div>';
-      list.appendChild(d);
+      listEl.appendChild(d);
     });
   }
   $("sheetSub").textContent = items.length
-    ? items.length + " of " + TOTAL + " collected — tap a card to remember it."
+    ? items.length + " of " + TOTAL + " collected"
     : "The idioms you collect will live here.";
-  $("overlay").classList.add("show");
+  overlay.classList.add("show");
+  // focus trap: move focus to close btn
+  setTimeout(()=>close.focus(), 50);
 }
-function closeCollection(){ $("overlay").classList.remove("show"); }
+function closeCollection(){
+  overlay.classList.remove("show");
+  $("jarBtn").focus();
+}
 
 /* ============================================================
    WIRE UP
@@ -614,18 +751,40 @@ $("catBtn").addEventListener("click", pet);
 $("speakBtn").addEventListener("click", speak);
 uzToggle.addEventListener("click", ()=>{
   const open = uzEl.classList.toggle("show");
-  uzToggle.textContent = open ? "Tarjimani yashirish" : "O‘zbekcha ko‘rsatish";
+  uzToggle.textContent = open ? "Tarjimani yashirish" : "O\u2018zbekcha ko\u2018rsatish";
 });
 $("jarBtn").addEventListener("click", openCollection);
-$("closeBtn").addEventListener("click", closeCollection);
-$("overlay").addEventListener("click", e=>{ if(e.target.id==="overlay") closeCollection(); });
-document.addEventListener("keydown", e=>{ if(e.key==="Escape") closeCollection(); });
+close.addEventListener("click", closeCollection);
+overlay.addEventListener("click", e=>{ if(e.target===overlay) closeCollection(); });
+document.addEventListener("keydown", e=>{
+  if(e.key==="Escape" && overlay.classList.contains("show")) closeCollection();
+  // P or Space to pet (not inside inputs)
+  if((e.key==="p"||e.key==="P"||e.key===" ") && !["INPUT","TEXTAREA","BUTTON"].includes(e.target.tagName)){
+    e.preventDefault();
+    pet();
+  }
+});
+
+/* focus trap inside modal */
+overlay.addEventListener("keydown", e=>{
+  if(e.key !== "Tab") return;
+  const focusable = overlay.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+  if(!focusable.length) return;
+  const first = focusable[0], last = focusable[focusable.length-1];
+  if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+  else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+});
 
 /* footer personalisation */
 if(FOOTER_NOTE){
   document.querySelector("footer p").innerHTML =
-    'Made with <span class="heart">♥</span> ' + FOOTER_NOTE +
+    'Made with <span class="heart">\u2665</span> ' + FOOTER_NOTE +
     ' &amp; a very wise cat named <b>Minnos</b>.';
+}
+
+/* ---------- service worker ---------- */
+if("serviceWorker" in navigator){
+  navigator.serviceWorker.register("sw.js").catch(()=>{});
 }
 
 /* init */
